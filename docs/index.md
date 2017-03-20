@@ -9,12 +9,14 @@ Message Verification and Signing is implemented as a separate module and you mus
 For node projects:
 
 ```bash
+npm install bitcore-lib --save
 npm install bitcore-message --save
 ```
 
 For client-side projects:
 
 ```bash
+bower install bitcore-lib --save
 bower install bitcore-message --save
 ```
 
@@ -22,7 +24,9 @@ bower install bitcore-message --save
 To sign a message:
 
 ```javascript
-var privateKey = PrivateKey.fromWIF('cPBn5A4ikZvBTQ8D7NnvHZYCAxzDZ5Z2TSGW2LkyPiLxqYaJPBW4');
+var bitcore = require('bitcore-lib');
+var Message = require('bitcore-message');
+var privateKey = bitcore.PrivateKey.fromWIF('cPBn5A4ikZvBTQ8D7NnvHZYCAxzDZ5Z2TSGW2LkyPiLxqYaJPBW4');
 var signature = Message('hello, world').sign(privateKey);
 ```
 
