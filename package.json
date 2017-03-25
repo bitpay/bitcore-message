@@ -30,7 +30,7 @@
     "gulp": "^3.8.10"
   },
   "peerDependencies": {
-    "bitcore-lib": "^0.14"
+    "bitcore-lib": "~0.13.7"
   },
   "license": "MIT"
 }
