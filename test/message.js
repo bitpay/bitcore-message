@@ -27,7 +27,7 @@ describe('Message', function() {
   it('will error with incorrect message type', function() {
     expect(function() {
       return new Message(new Date());
-    }).to.throw('First argument should be a string');
+    }).to.throw('First argument must be a string or Buffer');
   });
 
   it('will instantiate without "new"', function() {
@@ -37,13 +37,23 @@ describe('Message', function() {
 
   var signature2;
   var signature3;
+  var signature4;
+  var signature5;
 
-  it('can sign a message', function() {
+  it('can sign a text message', function() {
     var message2 = new Message(text);
     signature2 = message2._sign(privateKey);
     signature3 = Message(text).sign(privateKey);
     should.exist(signature2);
     should.exist(signature3);
+  });
+
+  it('can sign a Buffer', function() {
+    var message2 = new Message(new Buffer(text));
+    signature4 = message2._sign(privateKey);
+    signature5 = Message(text).sign(privateKey);
+    should.exist(signature4);
+    should.exist(signature5);
   });
 
   it('sign will error with incorrect private key argument', function() {
@@ -88,6 +98,13 @@ describe('Message', function() {
 
   it('can verify a message with address and generated signature string', function() {
     var message9 = new Message(text);
+    var verified = message9.verify(address, signature5);
+    should.not.exist(message9.error);
+    verified.should.equal(true);
+  });
+
+  it('can verify a message build from a Buffer with address and generated signature string', function() {
+    var message9 = new Message(new Buffer(text));
     var verified = message9.verify(address, signature3);
     should.not.exist(message9.error);
     verified.should.equal(true);
